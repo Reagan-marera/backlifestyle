@@ -40,7 +40,7 @@ const RegistrationForm = () => {
         e.preventDefault();
 
         // Check if role is 'ceo' and secret password is correct
-        if (formData.role === 'ceo' && formData.secret_password !== 'SKYLINECEO') {
+        if (formData.role === 'ceo' && formData.secret_password !== 'SKYNETCEO') {
             setMessage('Invalid secret password for CEO registration.');
             return;
         }

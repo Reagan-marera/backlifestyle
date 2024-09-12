@@ -29,7 +29,7 @@ const Dashboard = ({ token }) => {
         const decodedToken = jwtDecode(token);
         console.log("Decoded Token:", decodedToken);
 
-        const role = decodedToken.sub && decodedToken.sub.role.toLowerCase();
+        const role = decodedToken.sub && decodedToken.sub.role?.toLowerCase();
         if (role) {
           setUserRole(role);
         } else {
@@ -57,7 +57,7 @@ const Dashboard = ({ token }) => {
           });
 
           if (!response.ok) {
-            throw new Error('Please logout and login again');
+            throw new Error('Error fetching students data');
           }
 
           const data = await response.json();
@@ -85,7 +85,7 @@ const Dashboard = ({ token }) => {
           });
 
           if (!response.ok) {
-            throw new Error('Please logout and login again');
+            throw new Error('Error fetching student data');
           }
 
           const data = await response.json();
@@ -153,51 +153,55 @@ const Dashboard = ({ token }) => {
       );
 
       setEditingId(null); // Exit edit mode
+
+      alert("Student updated successfully!"); // Simple success feedback
     } catch (error) {
       setError(error.message);
     }
   };
 
   // Handle delete button click to delete a student
-const handleDeleteClick = async (studentId) => {
-  // Confirm deletion
-  const isConfirmed = window.confirm('Are you sure you want to delete this student?');
+  const handleDeleteClick = async (studentId) => {
+    // Confirm deletion
+    const isConfirmed = window.confirm('Are you sure you want to delete this student?');
 
-  if (!isConfirmed) {
-    return; // Exit if the user cancels
-  }
-
-  try {
-    const response = await fetch(`http://localhost:5000/students/${studentId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Error deleting student');
+    if (!isConfirmed) {
+      return; // Exit if the user cancels
     }
 
-    // Remove the student from the list
-    setStudents((prevStudents) =>
-      prevStudents.filter((student) => student.id !== studentId)
-    );
-  } catch (error) {
-    setError(error.message);
-  }
-};
+    try {
+      const response = await fetch(`http://localhost:5000/students/${studentId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
+      if (!response.ok) {
+        throw new Error('Error deleting student');
+      }
+
+      // Remove the student from the list
+      setStudents((prevStudents) =>
+        prevStudents.filter((student) => student.id !== studentId)
+      );
+
+      alert("Student deleted successfully!"); // Simple success feedback
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
   return (
     <div>
       <h1>{userRole ? `${userRole.charAt(0).toUpperCase() + userRole.slice(1)} Dashboard` : 'Dashboard'}</h1>
 
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
       {userRole === 'ceo' ? (
         <div>
           <h3>All Students</h3>
-          {error && <p>Error: {error}</p>}
 
           <table className="student-table">
             <thead>
@@ -229,7 +233,8 @@ const handleDeleteClick = async (studentId) => {
                         />
                       ) : (
                         student.name
-                      )}</td>
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="text"
@@ -239,7 +244,8 @@ const handleDeleteClick = async (studentId) => {
                         />
                       ) : (
                         student.branch
-                      )}</td>
+                      )}
+                    </td>
                     <td>{student.nationality_number}</td>
                     <td>{editingId === student.id ? (
                         <input
@@ -250,7 +256,8 @@ const handleDeleteClick = async (studentId) => {
                         />
                       ) : (
                         student.phone_number
-                      )}</td>
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="number"
@@ -260,17 +267,19 @@ const handleDeleteClick = async (studentId) => {
                         />
                       ) : (
                         student.amount_paid
-                      )}</td>
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="date"
                           name="date_amount_paid_updated"
-                          value={formData.date_amount_paid_updated}
+                          value={formData.date_amount_paid_updated || ''}
                           onChange={handleInputChange}
                         />
                       ) : (
-                        student.date_amount_paid_updated
-                      )}</td>
+                        student.date_amount_paid_updated ? student.date_amount_paid_updated : 'N/A'
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="number"
@@ -280,17 +289,19 @@ const handleDeleteClick = async (studentId) => {
                         />
                       ) : (
                         student.top_up
-                      )}</td>
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="date"
                           name="date_top_up_updated"
-                          value={formData.date_top_up_updated}
+                          value={formData.date_top_up_updated || ''}
                           onChange={handleInputChange}
                         />
                       ) : (
-                        student.date_top_up_updated
-                      )}</td>
+                        student.date_top_up_updated ? student.date_top_up_updated : 'N/A'
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="text"
@@ -300,17 +311,19 @@ const handleDeleteClick = async (studentId) => {
                         />
                       ) : (
                         student.balance
-                      )}</td>
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="date"
                           name="date_balance_updated"
-                          value={formData.date_balance_updated}
+                          value={formData.date_balance_updated || ''}
                           onChange={handleInputChange}
                         />
                       ) : (
-                        student.date_balance_updated
-                      )}</td>
+                        student.date_balance_updated ? student.date_balance_updated : 'N/A'
+                      )}
+                    </td>
                     <td>{editingId === student.id ? (
                         <input
                           type="text"
@@ -320,7 +333,8 @@ const handleDeleteClick = async (studentId) => {
                         />
                       ) : (
                         student.status
-                      )}</td>
+                      )}
+                    </td>
                     <td>
                       {editingId === student.id ? (
                         <>
@@ -329,8 +343,8 @@ const handleDeleteClick = async (studentId) => {
                         </>
                       ) : (
                         <>
-                          <button className='button-edit 'onClick={() => handleEditClick(student)}>Edit</button>
-                          <button className='button-delete'onClick={() => handleDeleteClick(student.id)}>Delete</button>
+                          <button onClick={() => handleEditClick(student)}>Edit</button>
+                          <button onClick={() => handleDeleteClick(student.id)}>Delete</button>
                         </>
                       )}
                     </td>
@@ -338,43 +352,30 @@ const handleDeleteClick = async (studentId) => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="12">No students found.</td>
+                  <td colSpan="12">No students found</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
-      ) : userRole === 'student' ? (
+      ) : userRole === 'student' && studentData ? (
         <div>
-          {error && <p>Error: {error}</p>}
-          <h3>My Details</h3>
-          {studentData ? (
-            <table className="student-table">
-              <tbody>
-                <tr>
-                  <td><strong>Name:</strong></td>
-                  <td>{studentData.name}</td>
-                </tr>
-                <tr>
-                  <td><strong>Branch:</strong></td>
-                  <td>{studentData.branch}</td>
-                </tr>
-                <tr>
-                  <td><strong>Amount Paid:</strong></td>
-                  <td>{studentData.amount_paid}</td>
-                </tr>
-                <tr>
-                  <td><strong>Remaining Balance:</strong></td>
-                  <td>{studentData.balance}</td>
-                </tr>
-              </tbody>
-            </table>
-          ) : (
-            <p>Loading student data...</p>
-          )}
+          <h3>Your Profile</h3>
+          <p>Name: {studentData.name}</p>
+          <p>Email: {studentData.email}</p>
+          <p>Branch: {studentData.branch}</p>
+          <p>ID Number: {studentData.nationality_number}</p>
+          <p>Phone Number: {studentData.phone_number || 'N/A'}</p>
+          <p>Amount Paid: {studentData.amount_paid}</p>
+          <p>Date Registration Fee Paid Updated: {studentData.date_amount_paid_updated || 'N/A'}</p>
+          <p>Top-Up: {studentData.top_up}</p>
+          <p>Date Top-Up Updated: {studentData.date_top_up_updated || 'N/A'}</p>
+          <p>Clearance: {studentData.balance}</p>
+          <p>Date Clearance Updated: {studentData.date_balance_updated || 'N/A'}</p>
+          <p>Status: {studentData.status}</p>
         </div>
       ) : (
-        <p>Unauthorized: Invalid role</p>
+        <p>Unauthorized Access</p>
       )}
     </div>
   );
