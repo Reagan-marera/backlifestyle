@@ -66,7 +66,12 @@ const Home = () => {
                 </section>
                 
                 <div className="advertisement">
-                    <img src={vehicleImage} alt="Our Vehicles" />
+                <img 
+  src={vehicleImage} 
+  alt="Our Vehicles" 
+  style={{ maxWidth: '100%', height: 'auto' }} 
+/>
+
                     <div className="advertisement-content">
                         <h2>Discover Our Vehicles</h2>
                         <p>
