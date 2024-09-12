@@ -85,7 +85,12 @@ const Home = () => {
                         </p>
                     </div>
                 </div>
-                
+                <div>
+                    <h1>Get in Touch:
+                        0725595601 OR 0725596000
+                    </h1>
+
+                </div>
                 
                 <div className="call-to-action">
                     <h2 className='new'><a href="/register">REGISTER NOW</a > to get started or <a href="/login">LOGIN</a> if you already have an account.</h2>
