@@ -83,7 +83,7 @@ const Home = () => {
                 
                 
                 <div className="call-to-action">
-                    <a href="/register">REGISTER NOW</a> to get started or <a href="/login">LOGIN</a> if you already have an account.
+                    <h2 className='new'><a href="/register">REGISTER NOW</a > to get started or <a href="/login">LOGIN</a> if you already have an account.</h2>
                 </div>
             </div>
         </div>

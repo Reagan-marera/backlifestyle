@@ -104,17 +104,7 @@ const RegistrationForm = () => {
                                 required
                             />
                         </div>
-                        <div className="input-group">
-                            <label className="input-label">Total Fees:</label>
-                            <input 
-                                type="number" 
-                                name="total_fees" 
-                                value={formData.total_fees} 
-                                onChange={handleChange} 
-                                className="input-field"
-                                required
-                            />
-                        </div>
+                       
                     </>
                 )}
                 <div className="input-group">
@@ -161,17 +151,7 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
-                <div className="input-group">
-                    <label className="input-label">Date of Birth:</label>
-                    <input 
-                        type="date" 
-                        name="date_of_birth" 
-                        value={formData.date_of_birth} 
-                        onChange={handleChange} 
-                        className="input-field"
-                        required
-                    />
-                </div>
+               
                 {formData.role === 'ceo' && (
                     <div className="input-group">
                         <label className="input-label">Secret Password:</label>

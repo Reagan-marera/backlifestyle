@@ -6,7 +6,7 @@
     align-items: center;
     min-height: 100vh;
     padding: 2rem;
-    background: #f0f0f0; /* Light background for the entire container */
+    background: #5e5e61; /* Light background for the entire container */
 }
 
 .home-content {
@@ -160,7 +160,7 @@ body {
   .student-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #e0f7fa; /* Ocean blue background */
+    background-color: #000000; /* Ocean blue background */
     text-align: left;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   }
@@ -179,7 +179,7 @@ body {
   }
   
   .student-table tr:nth-child(even) {
-    background-color: #b2ebf2; /* Lighter blue for alternating rows */
+    background-color: #000000; /* Lighter blue for alternating rows */
   }
   
   .student-table td input {
@@ -238,4 +238,4 @@ body {
   .button-container button {
     margin-right: 5px;
   }
-  
+  .new{color: red;}
