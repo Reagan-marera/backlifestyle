@@ -1,7 +1,7 @@
 /* Home.css */
 
 .home-container {
-    display: flex;
+   
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -26,13 +26,13 @@
 }
 .advertisement {
     margin-top: auto; /* Push advertisement to the bottom */
-    display: flex;
+    
     padding: 2rem; /* Increased padding for a more spacious look */
     background-color: #f9f9f9; /* Light background to distinguish the advertisement */
     border-top: 2px solid #e0e0e0; /* Subtle border on top */
     border-radius: 0.75rem; /* Slightly larger radius for a more modern look */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Increased shadow for better depth */
-    color: #0056b3;
+    color: #002fff;
 }
 
 .advertisement img {
