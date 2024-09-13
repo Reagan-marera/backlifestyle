@@ -170,7 +170,7 @@ body {
   background-color: #000000; /* Ocean blue background */
   text-align: left;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  overflow-x: auto; /* Enable horizontal scrolling if table is too wide */
+  white-space: nowrap; /* Prevent table from wrapping */
 }
 
 .student-table th,
@@ -187,7 +187,7 @@ body {
 }
 
 .student-table tr:nth-child(even) {
-  background-color: #1c1c1c; /* Lighter shade for alternating rows */
+  background-color: #000000; /* Lighter blue for alternating rows */
 }
 
 .student-table td input {
@@ -198,36 +198,21 @@ body {
   font-family: 'Roboto', sans-serif; /* Consistent font for inputs */
 }
 
-/* Add responsive scrolling on small screens */
-.table-container {
-  overflow-x: auto;
-}
-
-@media (max-width: 768px) {
+/* Media query for small screens */
+@media only screen and (max-width: 768px) {
+  /* Enable horizontal scrolling without altering the layout */
   .student-table {
-    display: block;
-    white-space: nowrap;
-  }
-
-  .student-table thead {
-    display: block;
-  }
-
-  .student-table tbody {
     display: block;
     overflow-x: auto;
   }
-
-  .student-table th,
+  
+  /* Ensures the table doesn't break at smaller screen sizes */
+  .student-table tr, 
+  .student-table th, 
   .student-table td {
-    display: inline-block;
-  }
-
-  .student-table th {
-    text-align: center;
+    white-space: nowrap;
   }
 }
-
 
   button {
     padding: 8px 12px;
