@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {jwtDecode} from 'jwt-decode'; // Corrected import for jwt-decode
+import { jwtDecode } from 'jwt-decode'; // Corrected import for jwt-decode
+
 
 const Dashboard = ({ token }) => {
   const [students, setStudents] = useState([]);
-  const [studentData, setStudentData] = useState(null); // For student-specific data
+  const [studentData, setStudentData] = useState(null);
   const [error, setError] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [editingId, setEditingId] = useState(null);
@@ -15,7 +16,7 @@ const Dashboard = ({ token }) => {
     top_up: '',
     balance: '',
     nationality_number: '',
-    phone_number: '',  // Added phone number
+    phone_number: '',
     status: '',
     date_amount_paid_updated: '',
     date_top_up_updated: '',
@@ -110,7 +111,7 @@ const Dashboard = ({ token }) => {
       top_up: student.top_up,
       balance: student.balance,
       nationality_number: student.nationality_number,
-      phone_number: student.phone_number || '', // Handle phone number
+      phone_number: student.phone_number || '',
       status: student.status,
       date_amount_paid_updated: student.date_amount_paid_updated || '',
       date_top_up_updated: student.date_top_up_updated || '',
@@ -202,161 +203,162 @@ const Dashboard = ({ token }) => {
       {userRole === 'ceo' ? (
         <div>
           <h3>All Students</h3>
-          
-          <table className="student-table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Branch</th>
-                <th>ID Number</th>
-                <th>Contact</th>
-                <th>Registration Fee Paid</th>
-                <th>Date Registration Fee Paid Updated</th>
-                <th>Top-Up</th>
-                <th>Date Top-Up Updated</th>
-                <th>Clearance</th>
-                <th>Date Clearance Updated</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {students.length > 0 ? (
-                students.map((student) => (
-                  <tr key={student.id}>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="text"
-                          name="name"
-                          value={formData.name}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.name
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="text"
-                          name="branch"
-                          value={formData.branch}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.branch
-                      )}
-                    </td>
-                    <td>{student.nationality_number}</td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="text"
-                          name="phone_number"
-                          value={formData.phone_number}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.phone_number
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="number"
-                          name="amount_paid"
-                          value={formData.amount_paid}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.amount_paid
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="date"
-                          name="date_amount_paid_updated"
-                          value={formData.date_amount_paid_updated || ''}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.date_amount_paid_updated ? student.date_amount_paid_updated : 'N/A'
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="number"
-                          name="top_up"
-                          value={formData.top_up}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.top_up
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="date"
-                          name="date_top_up_updated"
-                          value={formData.date_top_up_updated || ''}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.date_top_up_updated ? student.date_top_up_updated : 'N/A'
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="text"
-                          name="balance"
-                          value={formData.balance}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.balance
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="date"
-                          name="date_balance_updated"
-                          value={formData.date_balance_updated || ''}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.date_balance_updated ? student.date_balance_updated : 'N/A'
-                      )}
-                    </td>
-                    <td>{editingId === student.id ? (
-                        <input
-                          type="text"
-                          name="status"
-                          value={formData.status}
-                          onChange={handleInputChange}
-                        />
-                      ) : (
-                        student.status
-                      )}
-                    </td>
-                    <td>
-                      {editingId === student.id ? (
-                        <>
-                          <button onClick={() => handleSaveClick(student.id)}>Save</button>
-                          <button onClick={() => setEditingId(null)}>Cancel</button>
-                        </>
-                      ) : (
-                        <>
-                          <button onClick={() => handleEditClick(student)}>Edit</button>
-                          <button onClick={() => handleDeleteClick(student.id)}>Delete</button>
-                        </>
-                      )}
-                    </td>
-                  </tr>
-                ))
-              ) : (
+          <div className="table-container">
+            <table className="student-table">
+              <thead>
                 <tr>
-                  <td colSpan="12">No students found</td>
+                  <th>Name</th>
+                  <th>Branch</th>
+                  <th>ID Number</th>
+                  <th>Contact</th>
+                  <th>Registration Fee Paid</th>
+                  <th>Date Registration Fee Paid Updated</th>
+                  <th>Top-Up</th>
+                  <th>Date Top-Up Updated</th>
+                  <th>Clearance</th>
+                  <th>Date Clearance Updated</th>
+                  <th>Status</th>
+                  <th>Action</th>
                 </tr>
-              )}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {students.length > 0 ? (
+                  students.map((student) => (
+                    <tr key={student.id}>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="text"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.name
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="text"
+                            name="branch"
+                            value={formData.branch}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.branch
+                        )}
+                      </td>
+                      <td>{student.nationality_number}</td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="text"
+                            name="phone_number"
+                            value={formData.phone_number}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.phone_number
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="number"
+                            name="amount_paid"
+                            value={formData.amount_paid}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.amount_paid
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="date"
+                            name="date_amount_paid_updated"
+                            value={formData.date_amount_paid_updated || ''}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.date_amount_paid_updated ? student.date_amount_paid_updated : 'N/A'
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="number"
+                            name="top_up"
+                            value={formData.top_up}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.top_up
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="date"
+                            name="date_top_up_updated"
+                            value={formData.date_top_up_updated || ''}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.date_top_up_updated ? student.date_top_up_updated : 'N/A'
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="text"
+                            name="balance"
+                            value={formData.balance}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.balance
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="date"
+                            name="date_balance_updated"
+                            value={formData.date_balance_updated || ''}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.date_balance_updated ? student.date_balance_updated : 'N/A'
+                        )}
+                      </td>
+                      <td>{editingId === student.id ? (
+                          <input
+                            type="text"
+                            name="status"
+                            value={formData.status}
+                            onChange={handleInputChange}
+                          />
+                        ) : (
+                          student.status
+                        )}
+                      </td>
+                      <td>
+                        {editingId === student.id ? (
+                          <>
+                            <button onClick={() => handleSaveClick(student.id)}>Save</button>
+                            <button onClick={() => setEditingId(null)}>Cancel</button>
+                          </>
+                        ) : (
+                          <>
+                            <button onClick={() => handleEditClick(student)}>Edit</button>
+                            <button onClick={() => handleDeleteClick(student.id)}>Delete</button>
+                          </>
+                        )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="12">No students found</td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
       ) : userRole === 'student' && studentData ? (
         <div>

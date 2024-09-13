@@ -156,21 +156,20 @@
 body {
     font-family: 'Roboto', sans-serif; /* Applying the font to the whole body */
   }
-  /* Container to enable horizontal scrolling */
+ /* Container for the table */
 .table-container {
-  width: 100%;
   overflow-x: auto; /* Enable horizontal scrolling */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling for touch devices */
+  margin: 0 auto; /* Center the table container */
+  padding: 10px; /* Add some padding around the container */
 }
 
-/* Smart table styling */
+/* Table styling */
 .student-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #000000; /* Background color */
+  background-color: #000000; /* Ocean blue background */
   text-align: left;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  white-space: nowrap; /* Prevent table from wrapping */
 }
 
 /* Styling for table headers and cells */
@@ -181,6 +180,7 @@ body {
   font-family: 'Roboto', sans-serif; /* Consistent font for table content */
 }
 
+/* Header styling */
 .student-table th {
   background-color: #00bcd4; /* Ocean blue for headers */
   color: white; /* White text for contrast */
@@ -203,26 +203,44 @@ body {
 
 /* Responsive table handling for small screens */
 @media only screen and (max-width: 768px) {
-  .student-table {
-    display: block;
-    overflow-x: auto; /* Horizontal scrolling */
-  }
-  
-  /* Prevent line breaks in table content on small screens */
+  .student-table,
+  .student-table thead,
+  .student-table tbody,
   .student-table th,
-  .student-table td {
-    white-space: nowrap;
+  .student-table td,
+  .student-table tr {
+    display: block; /* Makes the table, rows, and cells block elements */
   }
-  
-  /* Ensure table headers and cells remain side by side */
-  .student-table tr,
-  .student-table th,
-  .student-table td {
-    display: table-cell;
+
+  .student-table tr {
+    margin-bottom: 15px; /* Adds spacing between rows for clarity */
   }
-  
+
+  .student-table th {
+    display: none; /* Hide table headers */
+  }
+
+  .student-table td {
+    position: relative;
+    padding-left: 50%; /* Creates space for the label */
+    text-align: left;
+    border: none; /* Removes default borders on smaller screens */
+    border-bottom: 1px solid #b2ebf2; /* Adds a subtle border below cells */
+  }
+
+  .student-table td::before {
+    content: attr(data-label); /* Use the data-label attribute for the "label" text */
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding-left: 15px;
+    padding-top: 12px;
+    font-weight: bold;
+    text-transform: uppercase; /* Make the labels uppercase for clarity */
+    color: #00bcd4; /* Matches the header color */
+  }
+
   /* Optional: Adjust padding for better readability on small screens */
-  .student-table th,
   .student-table td {
     padding: 8px 10px;
   }
