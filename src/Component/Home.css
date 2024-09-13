@@ -167,12 +167,13 @@ body {
 .student-table {
   width: 100%;
   border-collapse: collapse;
-  background-color: #000000; /* Ocean blue background */
+  background-color: #000000; /* Background color */
   text-align: left;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   white-space: nowrap; /* Prevent table from wrapping */
 }
 
+/* Styling for table headers and cells */
 .student-table th,
 .student-table td {
   padding: 12px 15px;
@@ -186,10 +187,12 @@ body {
   font-weight: 700; /* Bold for headers */
 }
 
+/* Alternating row colors */
 .student-table tr:nth-child(even) {
-  background-color: #000000; /* Lighter blue for alternating rows */
+  background-color: #1c1c1c; /* Darker background for alternating rows */
 }
 
+/* Input fields inside table cells */
 .student-table td input {
   border: 1px solid #80deea; /* Light blue border for input fields */
   border-radius: 4px; /* Rounded corners for a softer look */
@@ -198,21 +201,33 @@ body {
   font-family: 'Roboto', sans-serif; /* Consistent font for inputs */
 }
 
-/* Media query for small screens */
+/* Responsive table handling for small screens */
 @media only screen and (max-width: 768px) {
-  /* Enable horizontal scrolling without altering the layout */
   .student-table {
     display: block;
-    overflow-x: auto;
+    overflow-x: auto; /* Horizontal scrolling */
   }
   
-  /* Ensures the table doesn't break at smaller screen sizes */
-  .student-table tr, 
-  .student-table th, 
+  /* Prevent line breaks in table content on small screens */
+  .student-table th,
   .student-table td {
     white-space: nowrap;
   }
+  
+  /* Ensure table headers and cells remain side by side */
+  .student-table tr,
+  .student-table th,
+  .student-table td {
+    display: table-cell;
+  }
+  
+  /* Optional: Adjust padding for better readability on small screens */
+  .student-table th,
+  .student-table td {
+    padding: 8px 10px;
+  }
 }
+
 
   button {
     padding: 8px 12px;
