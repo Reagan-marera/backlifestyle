@@ -65,6 +65,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin: 1rem auto;
     max-width: 800px;
+    color: black;
 }
 
 .home-content p {
