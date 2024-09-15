@@ -49,7 +49,7 @@ const Dashboard = ({ token }) => {
     if (userRole === 'ceo') {
       const fetchStudents = async () => {
         try {
-          const response = await fetch('https://lifestyle.seosblog.com/students', {
+          const response = await fetch('https://lifestyle.boogiecoin.com/students', {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ const Dashboard = ({ token }) => {
     if (userRole === 'student') {
       const fetchStudentData = async () => {
         try {
-          const response = await fetch('https://lifestyle.seosblog.com/student', {
+          const response = await fetch('https://lifestyle.boogiecoin.com/student', {
             method: 'GET',
             headers: {
               Authorization: `Bearer ${token}`,
@@ -131,7 +131,7 @@ const Dashboard = ({ token }) => {
   // Handle save button click to update the student info
   const handleSaveClick = async (studentId) => {
     try {
-      const response = await fetch(`https://lifestyle.seosblog.com/${studentId}`, {
+      const response = await fetch(`https://lifestyle.boogiecoin.com/${studentId}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -171,7 +171,7 @@ const Dashboard = ({ token }) => {
     }
 
     try {
-      const response = await fetch(`https://lifestyle.seosblog.com/${studentId}`, {
+      const response = await fetch(`https://lifestyle.boogiecoin.com/${studentId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
