@@ -54,7 +54,7 @@ const RegistrationForm = () => {
         }
 
         try {
-            const response = await fetch('https://lifestyle-an65.onrender.com/register', {
+            const response = await fetch('https://lifestyle.seosblog.com/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
