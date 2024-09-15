@@ -28,7 +28,7 @@ const Login = ({ setToken, setUserRole }) => {
         setLoading(true);
 
         try {
-            const response = await fetch('https://lifestyle-an65.onrender.com/login', {
+            const response = await fetch('https://lifestyle.seosblog.com/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
