@@ -131,7 +131,7 @@ const Dashboard = ({ token }) => {
   // Handle save button click to update the student info
   const handleSaveClick = async (studentId) => {
     try {
-      const response = await fetch(`https://lifestyle.boogiecoin.com/${studentId}`, {
+      const response = await fetch(`https://lifestyle.boogiecoin.com/students/${studentId}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -171,7 +171,7 @@ const Dashboard = ({ token }) => {
     }
 
     try {
-      const response = await fetch(`https://lifestyle.boogiecoin.com/${studentId}`, {
+      const response = await fetch(`https://lifestyle.boogiecoin.com/students/${studentId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
