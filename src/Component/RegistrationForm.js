@@ -1,30 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import './RegistrationForm.css'; // Import the CSS file
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ onRegistrationSuccess }) => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         nationality_number: '',
-        date_of_birth: '',
-        branch: '',  // Added branch field
-        total_fees: '',
+        branch_name: '', // Only for student and branch_ceo
         phone_number: '',
-        role: 'student',
-        secret_password: '', // New field for secret password
+        role: 'student', // Default role
+        secret_password: '', // CEO secret password
+        branch_ceo_secret: '', // Branch CEO secret password
     });
 
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false); // Loading state
 
-    // Effect to reset form fields when role changes
+    // Clear fields that are not necessary for the selected role
     useEffect(() => {
-        if (formData.role === 'ceo') {
+        if (formData.role !== 'branch_ceo') {
             setFormData(prevState => ({
                 ...prevState,
-                branch: '',
-                total_fees: '',
-                secret_password: '',
+                branch_name: ''
+            }));
+        }
+        if (formData.role !== 'ceo') {
+            setFormData(prevState => ({
+                ...prevState,
+                secret_password: ''
             }));
         }
     }, [formData.role]);
@@ -38,39 +42,42 @@ const RegistrationForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true); // Set loading state
 
-        // Check if role is 'ceo' and secret password is correct
-        if (formData.role === 'ceo' && formData.secret_password !== 'SKYNETCEO') {
-            setMessage('Invalid secret password for CEO registration.');
-            return;
-        }
-
-        // Remove fields that are not relevant to the selected role
+        // Prepare data for submission based on role
         const submissionData = { ...formData };
+
+        // Remove unnecessary fields based on role
         if (formData.role === 'ceo') {
-            delete submissionData.branch;
-            delete submissionData.total_fees;
-            delete submissionData.secret_password;
+            delete submissionData.branch_name;
+            delete submissionData.branch_ceo_secret; // Not needed for CEO
+        } else if (formData.role === 'branch_ceo') {
+            delete submissionData.secret_password; // Not needed for Branch CEO
+        } else if (formData.role === 'student') {
+            delete submissionData.secret_password; // Not needed for Student
         }
 
         try {
-            const response = await fetch('https://lifestyle.boogiecoin.com/register', {
+            const response = await fetch('http://localhost:5000/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(submissionData)
             });
-            
+
             const data = await response.json();
-            
+
             if (!response.ok) {
                 throw new Error(data.message || 'Error registering');
             }
 
             setMessage(data.message);
+            onRegistrationSuccess(); // Notify parent to redirect the user on success
         } catch (error) {
             setMessage(error.message);
+        } finally {
+            setLoading(false); // Reset loading state
         }
     };
 
@@ -89,24 +96,24 @@ const RegistrationForm = () => {
                     >
                         <option value="student">Student</option>
                         <option value="ceo">CEO</option>
+                        <option value="branch_ceo">Branch CEO</option> 
                     </select>
                 </div>
+
                 {formData.role === 'student' && (
-                    <>
-                        <div className="input-group">
-                            <label className="input-label">Branch:</label>
-                            <input 
-                                type="text" 
-                                name="branch" 
-                                value={formData.branch} 
-                                onChange={handleChange} 
-                                className="input-field"
-                                required
-                            />
-                        </div>
-                       
-                    </>
+                    <div className="input-group">
+                        <label className="input-label">Branch Name:</label>
+                        <input 
+                            type="text" 
+                            name="branch_name" 
+                            value={formData.branch_name} 
+                            onChange={handleChange} 
+                            className="input-field"
+                            required
+                        />
+                    </div>
                 )}
+
                 <div className="input-group">
                     <label className="input-label">Name:</label>
                     <input 
@@ -118,6 +125,7 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
+
                 <div className="input-group">
                     <label className="input-label">Email:</label>
                     <input 
@@ -129,6 +137,7 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
+
                 <div className="input-group">
                     <label className="input-label">Password:</label>
                     <input 
@@ -140,6 +149,7 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
+
                 <div className="input-group">
                     <label className="input-label">Nationality Number:</label>
                     <input 
@@ -151,7 +161,7 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
-               
+
                 {formData.role === 'ceo' && (
                     <div className="input-group">
                         <label className="input-label">Secret Password:</label>
@@ -165,6 +175,34 @@ const RegistrationForm = () => {
                         />
                     </div>
                 )}
+
+                {formData.role === 'branch_ceo' && (
+                    <>
+                        <div className="input-group">
+                            <label className="input-label">Branch CEO Secret Password:</label>
+                            <input 
+                                type="password" 
+                                name="branch_ceo_secret" 
+                                value={formData.branch_ceo_secret} 
+                                onChange={handleChange} 
+                                className="input-field"
+                                required
+                            />
+                        </div>
+                        <div className="input-group">
+                            <label className="input-label">Branch Name:</label>
+                            <input 
+                                type="text" 
+                                name="branch_name" 
+                                value={formData.branch_name} 
+                                onChange={handleChange} 
+                                className="input-field"
+                                required
+                            />
+                        </div>
+                    </>
+                )}
+
                 <div className="input-group">
                     <label className="input-label">Phone Number:</label>
                     <input 
@@ -176,7 +214,10 @@ const RegistrationForm = () => {
                         required
                     />
                 </div>
-                <button type="submit" className="submit-button">Register</button>
+
+                <button type="submit" className="submit-button" disabled={loading}>
+                    {loading ? 'Registering...' : 'Register'}
+                </button>
             </form>
             {message && <p className="message">{message}</p>}
         </div>

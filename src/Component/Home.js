@@ -86,9 +86,11 @@ const Home = () => {
                     </div>
                 </div>
                 <div>
-                    <h1>Get in Touch:
-                        0725595601 OR 0725596000
-                    </h1>
+                <i><h1>Get in Touch:
+    <a href="tel:0725595601">0725595601</a> OR 
+    <a href="tel:0725596000">0725596000</a>
+</h1></i>
+
 
                 </div>
                 

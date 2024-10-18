@@ -28,7 +28,7 @@ const Login = ({ setToken, setUserRole }) => {
         setLoading(true);
 
         try {
-            const response = await fetch('https://lifestyle.boogiecoin.com/login', {
+            const response = await fetch('http://localhost:5000/login', { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,8 +42,9 @@ const Login = ({ setToken, setUserRole }) => {
                 throw new Error(data.message || 'Login failed');
             }
 
+            // Set the token and role from response
             setToken(data.access_token);
-            setUserRole(data.userRole);
+            setUserRole(data.role);
             setMessage('Login successful');
         } catch (error) {
             setMessage(error.message);
