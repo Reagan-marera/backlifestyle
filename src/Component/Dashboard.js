@@ -51,8 +51,8 @@ const Dashboard = ({ token }) => {
             setLoading(true);
             try {
                 const url = userRole === 'ceo'
-                    ? 'http://localhost:5000/students/all'
-                    : `http://localhost:5000/students/branch?branch=${branch}`;
+                    ? 'https://lifestyle.boogiecoin.com/students/all'
+                    : `https://lifestyle.boogiecoin.com/students/branch?branch=${branch}`;
 
                 const response = await fetch(url, {
                     method: 'GET',
@@ -113,7 +113,7 @@ const Dashboard = ({ token }) => {
     // Handle save button click
     const handleSaveClick = async (studentId) => {
         try {
-            const response = await fetch(`http://localhost:5000/students/${studentId}`, {
+            const response = await fetch(`https://lifestyle.boogiecoin.com/students/${studentId}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -150,7 +150,7 @@ const Dashboard = ({ token }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/students/${studentId}`, {
+            const response = await fetch(`https://lifestyle.boogiecoin.com/students/${studentId}`, {
                 method: 'DELETE',
                 headers: {
                     Authorization: `Bearer ${token}`,
