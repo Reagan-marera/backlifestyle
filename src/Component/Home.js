@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';.
 import './Home.css'; // Import the CSS file
 import vehicleImage from './backpic.jpeg'; // Import your vehicle image
 
